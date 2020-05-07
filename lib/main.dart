@@ -110,26 +110,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child:
                     Divider(color: Colors.grey[300], thickness: Short.h * 0.01),
               ),
-              Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Material(
-                        color: Colors.white,
-                        child: Text(
-                          "Don't have an account ? ",
-                          style: TextStyle(
-                              color: Colors.grey, fontSize: Short.h * 0.025),
-                        )),
-                    FlatButton(
-                      onPressed:() =>Navigator.pushNamed(context,'SignUp'),
-                      child: Text(
-                        "Sign Up",
-                        style: TextStyle(
-                            color: Colors.green, fontSize: Short.h * 0.025),
-                      ),
-                    ),
-                  ]),
+     
             ],
           ),
         )),
