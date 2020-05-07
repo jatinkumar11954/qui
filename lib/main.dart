@@ -8,28 +8,36 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+       debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+         
+          primarySwatch: Colors.blue,
+        ),
+        home: Home(),
+        routes: <String, WidgetBuilder>{
+          // 'LoginA': (BuildContext context) => new LoginA(),
+          // 'Login': (BuildContext context) => new Login(),
+          // 'LoginOtp': (BuildContext context) => new LoginOtp(),
+          // 'Otp': (BuildContext context) => new Otp(),
+          // 'Main': (BuildContext context) => new FirstScreen(),
+          // 'Second': (BuildContext context) => new SecondScreen(),
+          // 'Desc': (BuildContext context) => new Description(),
+          // 'SignUp': (BuildContext context) => new SignUp(),
+        });
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+class Home extends StatefulWidget {
+ 
 
 
-
-  final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomeState createState() => _HomeState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomeState extends State<Home> {
  
   @override
   Widget build(BuildContext context) {
@@ -37,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
       
-        title: Text(widget.title),
+        title: Text("widget.title"),
       ),
       body: Center(
         child: Container(
