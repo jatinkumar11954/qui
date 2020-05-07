@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
                           child: FlatButton(
                         onPressed: () =>Navigator.pushReplacementNamed(context, "Login"),
                         child: Text(
-                          "Login via Email / Phone",
+                          "Login via Google",
                           style: TextStyle(
                               color: Colors.green, fontSize: Short.h * 0.025),
                         ),
