@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart' as prefix;
 import 'package:qui/short.dart';
 
 class Login extends StatefulWidget {
@@ -8,6 +11,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final GlobalKey<ScaffoldState> _scaffoldKey=GlobalKey<ScaffoldState>();
+  final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
+  
   TextEditingController email;
   TextEditingController pwd;
   bool showPwd = true;
@@ -20,6 +26,64 @@ class _LoginState extends State<Login> {
     email = new TextEditingController();
     pwd = new TextEditingController();
     super.initState();
+  }
+ void callSnackBar(String msg,[int er])
+  {
+    if(er==1)
+    {
+      msg="There is no record with this user, please register first by clicking Register or check the user mail id or Password";
+      final SnackBar=new prefix.SnackBar(
+      content: new Text(msg),
+      duration: new Duration(seconds: 10),
+      action: new SnackBarAction(label: "Register",
+      onPressed: (){
+        Navigator.pushNamed(context, "Register");
+      },),
+    );
+     _scaffoldKey.currentState.showSnackBar(SnackBar);
+    }
+
+    else if(er==2){
+      final SnackBar=new prefix.SnackBar(
+      content: new Text(msg),
+      duration: new Duration(seconds: 10),
+      action: new SnackBarAction(label: "EXIT",
+      onPressed: (){
+        // Navigator.pushNamed(context, "Exit");
+        exit(0);
+      },),
+    );
+     _scaffoldKey.currentState.showSnackBar(SnackBar);
+    }
+
+    else{
+          final SnackBar=new prefix.SnackBar(
+      content: new Text(msg),
+      duration: new Duration(seconds: 2),
+
+    );
+    _scaffoldKey.currentState.showSnackBar(SnackBar);
+  
+    }
+    }
+
+  String emailValidator(String value) {
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value)) {
+      return 'Email format is invalid';
+    } else {
+      return null;
+    }
+  }
+
+  String pwdValidator(String value) {
+    if (value.length < 8) {
+      return 'Password must be longer than 8 characters';
+    } else {
+      return null;
+    }
   }
 
   void _toggle() {
@@ -77,7 +141,7 @@ class _LoginState extends State<Login> {
                 ),
                 controller: email,
                 keyboardType: TextInputType.emailAddress,
-                // validator: emailValidator,
+                validator: emailValidator,
               ),
             ),
           ),
@@ -106,7 +170,7 @@ class _LoginState extends State<Login> {
                 ),
                 controller: pwd,
                 keyboardType: TextInputType.emailAddress,
-                // validator: emailValidator,
+              validator: pwdValidator,
               ),
             ),
           ),
@@ -122,6 +186,29 @@ class _LoginState extends State<Login> {
                 color: Colors.green,
                 onPressed: () {
                   print("login button is clicked");
+                         if (_loginFormKey.currentState.validate()) {
+                        callSnackBar("You are logging in ..  Please wait!!!!");
+                        // status._isLogin=true;
+                        print("after validation");
+                        // FirebaseAuth.instance
+                        //     .signInWithEmailAndPassword(
+                        //         email: emailInputController.text,
+                        //         password: pwdInputController.text)
+                        //     .then((currentUser) => Firestore.instance
+                        //         .collection("users")
+                        //         .document(currentUser.uid)
+                        //         .get()
+                        //         .then(
+                        //           (DocumentSnapshot result) =>Navigator.pushReplacementNamed(context, "HomeScreen"),
+                        //                     )
+                        //         .catchError((err) => callSnackBar(err.toString())))
+                        //     .catchError((err) =>callSnackBar(err.toString(),1));
+                      }
+                       else{
+                        print("no username or password wrong");
+                        Text("No Username, Password ");
+                        callSnackBar("No Username or wrong password");
+                      }
                 },
                 shape: RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(50.0),
