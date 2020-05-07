@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:qui/auth.dart';
 import 'package:qui/short.dart';
 
+import 'HomeScreen.dart';
 import 'loginEmail.dart';
 
 void main() => runApp(MyApp());
@@ -59,7 +61,17 @@ class _HomeState extends State<Home> {
                     children: <Widget>[
                       Center(
                           child: FlatButton(
-                        onPressed: () =>Navigator.pushReplacementNamed(context, "Login"),
+                        onPressed: () =>
+                         signInWithGoogle().whenComplete(() {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) {
+            return HomeScreen();
+          },
+        ),
+      );
+    }),
+                        // Navigator.pushReplacementNamed(context, "Login"),
                         child: Text(
                           "Login via Google",
                           style: TextStyle(
