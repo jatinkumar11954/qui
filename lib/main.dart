@@ -41,6 +41,7 @@ class _HomeState extends State<Home> {
  
   @override
   Widget build(BuildContext context) {
+    Short().init(context);
   
     return Scaffold(
       appBar: AppBar(
@@ -113,13 +114,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 )),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: Short.h * 0.02, bottom: Short.h * 0.05),
-                  child:
-                      Divider(color: Colors.grey[300], thickness: Short.h * 0.01),
-                ),
-     
+               
               ],
             ),
           )),
