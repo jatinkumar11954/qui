@@ -37,36 +37,33 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    
     Short().init(context);
     return Scaffold(
-          body: SingleChildScrollView(
-                      child: Column(children: <Widget>[
-        // (
+      body: SingleChildScrollView(
+        child: Column(children: <Widget>[
+          // (
 
-      
-
-        Padding(
-            padding: const EdgeInsets.all(20.0),
+          Padding(
+            padding: const EdgeInsets.only(top:90.0,bottom: 90),
             child: Center(
               child: Material(
-                    color: Colors.white,
+                color: Colors.white,
                 child: Text(
-                  "Login",
+                  "Login Via Email",
                   style:
-                      TextStyle(color: Colors.green, fontSize: Short.h * 0.046),
+                      TextStyle(color: Colors.green, fontSize:25),
                 ),
               ),
             ),
-        ),
-        // SizedBox(height:Short.h*0.1),
-        Padding(
+          ),
+          // SizedBox(height:Short.h*0.1),
+          Padding(
             padding: EdgeInsets.only(
                 top: Short.h * 0.05,
                 left: Short.w * 0.07,
                 right: Short.w * 0.07),
             child: Material(
-                  color: Colors.white,
+              color: Colors.white,
               child: TextFormField(
                 decoration: InputDecoration(
                   labelStyle:
@@ -83,14 +80,14 @@ class _LoginState extends State<Login> {
                 // validator: emailValidator,
               ),
             ),
-        ),
-        Padding(
+          ),
+          Padding(
             padding: EdgeInsets.only(
                 top: Short.h * 0.04,
                 left: Short.w * 0.07,
                 right: Short.w * 0.07),
             child: Material(
-                  color: Colors.white,
+              color: Colors.white,
               child: TextFormField(
                 obscureText: showPwd,
                 decoration: InputDecoration(
@@ -112,9 +109,9 @@ class _LoginState extends State<Login> {
                 // validator: emailValidator,
               ),
             ),
-        ),
+          ),
 
-        Padding(
+          Padding(
             padding: EdgeInsets.only(top: Short.h * 0.045),
             child: RaisedButton(
                 padding: EdgeInsets.only(
@@ -132,10 +129,9 @@ class _LoginState extends State<Login> {
                 child: Text("LOGIN",
                     style: TextStyle(
                         color: Colors.white, fontSize: Short.h * 0.04))),
-        ),
-      
-      ]),
           ),
+        ]),
+      ),
     );
   }
 }
