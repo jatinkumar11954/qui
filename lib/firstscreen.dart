@@ -45,7 +45,7 @@ class FirstScreen extends StatelessWidget {
                                 snapshot.data.phoneNumber +
                                 "\n ",
                         style: TextStyle(
-                            color: Colors.red,
+                            color: Colors.blue,
                             fontSize: SizeConfig.blockSizeVertical * 2.5),
                       ),
                     );

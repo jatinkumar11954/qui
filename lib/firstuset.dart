@@ -110,7 +110,7 @@ class _FirstUserState extends State<FirstUser> {
                   child: Material(
                     color: Colors.white,
                     child: TextFormField(
-                      obscureText: showPwd,
+                      
                       decoration: InputDecoration(
                         labelStyle: TextStyle(
                             color: Colors.grey, fontSize: SizeConfig.h * 0.02),
@@ -136,7 +136,7 @@ class _FirstUserState extends State<FirstUser> {
                   child: Material(
                     color: Colors.white,
                     child: TextFormField(
-                      obscureText: showPwd,
+                     
                       decoration: InputDecoration(
                         labelStyle: TextStyle(
                             color: Colors.grey, fontSize: SizeConfig.h * 0.02),
@@ -162,7 +162,7 @@ class _FirstUserState extends State<FirstUser> {
                   child: Material(
                     color: Colors.white,
                     child: TextFormField(
-                      obscureText: showPwd,
+                     
                       decoration: InputDecoration(
                         labelStyle: TextStyle(
                             color: Colors.grey, fontSize: SizeConfig.h * 0.02),
@@ -210,6 +210,7 @@ class _FirstUserState extends State<FirstUser> {
                             })
                             .then((result) => {
                                   print("Successfully Registered Thank You!"),
+                                // callSnackBar("user detals are entered successfully"),
                                   Navigator.pushNamed(context, "Main",
                                       arguments: i == "otp" ? "otp" : "gmail"),
                                   fullName.clear(),
@@ -220,23 +221,8 @@ class _FirstUserState extends State<FirstUser> {
                             .catchError((err) => print(err)))
                         .catchError((err) => print(err));
                   } else {
-                    print("fail");
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Text("Error"),
-                            content: Text(" do not match"),
-                            actions: <Widget>[
-                              FlatButton(
-                                child: Text("Close"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              )
-                            ],
-                          );
-                        });
+                      Navigator.pushNamed(context, "Main",
+                                      arguments: i == "otp" ? "otp" : "gmail");
                   }
                 },
                 shape: RoundedRectangleBorder(

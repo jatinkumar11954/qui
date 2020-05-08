@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:indeed/short.dart';
+import 'package:indeed/welcome.dart';
 
 import 'firstscreen.dart';
 import 'firstuset.dart';
@@ -11,11 +14,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
         title: 'Flutter Login',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: LoginPage(),
+        home: FutureBuilder(
+                future: FirebaseAuth.instance.currentUser(),
+              
+                builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
+                  if (snapshot.hasData) {
+                    return Welcome();
+                      
+                    
+                  } else {
+                    return LoginPage();
+                  }
+                },
+              ),
         routes: <String, WidgetBuilder>{
           'otp': (BuildContext context) => new PhoneLogin(),
           'Main': (BuildContext context) => new FirstScreen(),

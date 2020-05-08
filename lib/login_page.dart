@@ -28,8 +28,8 @@ class _LoginPageState extends State<LoginPage> {
                 child: FlatButton(
                     onPressed: () => Navigator.popAndPushNamed(context, "otp"),
                     child: Text(
-                      "otp",
-                      style: TextStyle(color: Colors.green, fontSize: 35),
+                      "Login Via Phone Nmber",
+                      style: TextStyle(color: Colors.green, fontSize:25),
                     )),
               )
             ],
@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image(image: AssetImage("assets/google_logo.png"), height: 35.0),
+            
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Text(
