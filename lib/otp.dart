@@ -34,9 +34,26 @@ String status,actualCode;
   String phone;
   String smsCode;
   String verificationId;  var _authCredential;
+  
 
+  Future<void> Phone(String smsCode)async{ var firebaseAuth = await FirebaseAuth.instance;
+  
+  _authCredential = await PhoneAuthProvider.getCredential(
+      verificationId: actualCode, smsCode: smsCode);
+  firebaseAuth.signInWithCredential(_authCredential).catchError((error) {
+    setState(() {
+      status = 'Something has gone wrong, please try later';
+    });
+  }).then(( user) {
+    setState(() {
+      status = 'Authentication successful';
+    });
+  Navigator.pushNamed(context, "Main",arguments: "otp");
+  });}
   Future<void> verifyPhone() async{
     var firebaseAuth = await FirebaseAuth.instance;
+   
+
 
 final PhoneCodeSent codeSent =
     (String verificationId, [int forceResendingToken]) async {
@@ -78,17 +95,15 @@ final PhoneVerificationFailed verificationFailed =
 //       });
 //     };
 
-    final PhoneCodeAutoRetrievalTimeout autoRetrieve =(String verId){
-      this.verificationId=verId;
 
-    };
 final PhoneVerificationCompleted verificationCompleted =
     (AuthCredential auth) {
   setState(() {
     status = 'Auto retrieving verification code';
   });
-  //_authCredential = auth;
-
+  
+  _authCredential = auth;
+print("auth");
   firebaseAuth
     .signInWithCredential(_authCredential)
     .then((AuthResult value) {
@@ -96,6 +111,7 @@ final PhoneVerificationCompleted verificationCompleted =
     setState(() {
       status = 'Authentication successful';
     });
+    Navigator.pushNamed(context, "Main",arguments: "otp");
   } else {
     setState(() {
       status = 'Invalid code/invalid authentication';
@@ -106,14 +122,14 @@ final PhoneVerificationCompleted verificationCompleted =
     status = 'Something has gone wrong, please try later';
   });
 });
-};
-firebaseAuth.verifyPhoneNumber(
+};firebaseAuth.verifyPhoneNumber(
     phoneNumber: phone,
     timeout: Duration(seconds: 60),
     verificationCompleted: verificationCompleted,
     verificationFailed: verificationFailed,
     codeSent: codeSent,
     codeAutoRetrievalTimeout: codeAutoRetrievalTimeout);
+
     // final PhoneVerificationCompleted verifiedSuccess = (FirebaseUser user){
     //   print("verified succcess");
     // };
@@ -132,6 +148,7 @@ firebaseAuth.verifyPhoneNumber(
     // );
 
   }
+  
 
   Future<bool> smsCodeDialog(BuildContext context){
     return showDialog(
@@ -166,17 +183,7 @@ firebaseAuth.verifyPhoneNumber(
               child: Text("Done"),
               onPressed: (){
                 SmsValidator(smsCode);
-                // callSnackBar("You are signing in please wait !!");
-                // FirebaseAuth.instance.currentUser().then((user){
-                //   if(user!=null){
-                //     Navigator.of(context).pop();
-                //     Navigator.pushReplacementNamed(context,'HomeScreen');
-                //   }
-                //   else{
-                //     Navigator.of(context).pop();
-                //     signIn();
-                //   }
-                // });
+            
               },
             )
           ],
@@ -224,7 +231,7 @@ if (value.length!=6 || value.length==null) {
                   }
                   else{
                     Navigator.of(context).pop();
-                   verifyPhone();
+                   Phone(value);
                   }
                 });
       return null;

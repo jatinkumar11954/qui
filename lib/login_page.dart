@@ -40,13 +40,7 @@ class _LoginPageState extends State<LoginPage> {
       splashColor: Colors.grey,
       onPressed: () async{
        await signInWithGoogle().whenComplete(() {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return FirstScreen();
-              },
-            ),
-          );
+          Navigator.pushNamed(context, "Main",arguments: "gmail");
         });
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),

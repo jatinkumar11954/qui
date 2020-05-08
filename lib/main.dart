@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
    
           'otp': (BuildContext context) => new PhoneLogin(),
           'Main': (BuildContext context) => new FirstScreen(),
-          // 'Second': (BuildContext context) => new SecondScreen(),
+          'login': (BuildContext context) => new LoginPage(),
           // 'Desc': (BuildContext context) => new Description(),
           // 'SignUp': (BuildContext context) => new SignUp(),
         }
