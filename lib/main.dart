@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'firstscreen.dart';
+import 'firstuset.dart';
 import 'login_page.dart';
 import 'otp.dart';
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
           'otp': (BuildContext context) => new PhoneLogin(),
           'Main': (BuildContext context) => new FirstScreen(),
           'login': (BuildContext context) => new LoginPage(),
-          // 'Desc': (BuildContext context) => new Description(),
+          'first': (BuildContext context) => new FirstUser(),
           // 'SignUp': (BuildContext context) => new SignUp(),
         }
     );

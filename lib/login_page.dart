@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'firstscreen.dart';
@@ -39,7 +40,12 @@ class _LoginPageState extends State<LoginPage> {
     return OutlineButton(
       splashColor: Colors.grey,
       onPressed: () async{
-       await signInWithGoogle().whenComplete(() {
+  AuthResult auth= await signInWithGoogle(context);
+       await signInWithGoogle(context).whenComplete(() {
+       
+   if(auth.additionalUserInfo.isNewUser ){
+    return  Navigator.pushNamed(context, "first" );
+}
           Navigator.pushNamed(context, "Main",arguments: "gmail");
         });
       },

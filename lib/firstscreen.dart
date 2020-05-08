@@ -12,7 +12,7 @@ class FirstScreen extends StatelessWidget {
       body: Container(
         height: MediaQuery.of(context).size.height*0.8,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Container(
               height: MediaQuery.of(context).size.height*0.5,
