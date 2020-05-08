@@ -5,7 +5,7 @@ class FirstScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(color: Colors.blue[100],
-      child: Text(""),
+      child: Text("Welcome"),)
     );
   }
 }
