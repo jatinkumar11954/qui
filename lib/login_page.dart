@@ -25,9 +25,12 @@ class _LoginPageState extends State<LoginPage> {
               _signInButton(),
               Padding(
                 padding: const EdgeInsets.all(48.0),
-                child: FlatButton(onPressed:()=>Navigator.popAndPushNamed(context, "otp"), child: Text("otp",
-                  style:
-                      TextStyle(color: Colors.green, fontSize:35),)),
+                child: FlatButton(
+                    onPressed: () => Navigator.popAndPushNamed(context, "otp"),
+                    child: Text(
+                      "otp",
+                      style: TextStyle(color: Colors.green, fontSize: 35),
+                    )),
               )
             ],
           ),
@@ -39,14 +42,14 @@ class _LoginPageState extends State<LoginPage> {
   Widget _signInButton() {
     return OutlineButton(
       splashColor: Colors.grey,
-      onPressed: () async{
-  AuthResult auth= await signInWithGoogle(context);
-       await signInWithGoogle(context).whenComplete(() {
-       
-   if(auth.additionalUserInfo.isNewUser ){
-    return  Navigator.pushNamed(context, "first" );
-}
-          Navigator.pushNamed(context, "Main",arguments: "gmail");
+      onPressed: () async {
+        AuthResult auth = await signInWithGoogle(context);
+        await signInWithGoogle(context).whenComplete(() {
+          if (auth.additionalUserInfo.isNewUser) {
+            print("firest uset");
+            return Navigator.pushNamed(context, "first");
+          }
+          Navigator.pushNamed(context, "Main", arguments: "gmail");
         });
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),

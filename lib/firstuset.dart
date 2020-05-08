@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter/material.dart' as prefix0;
 import 'package:indeed/short.dart';
 
 class FirstUser extends StatefulWidget {
@@ -10,8 +10,23 @@ class FirstUser extends StatefulWidget {
 }
 
 class _FirstUserState extends State<FirstUser> {
-    
- TextEditingController fullName;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  bool _isLoading = false;
+
+  void callSnackBar(String msg, [int er]) {
+    // msg="There is no record with this user, please register first by clicking Register or check the user mail id or Password";
+    final SnackBar = new prefix0.SnackBar(
+      content: new Text(msg),
+      duration: new Duration(seconds: 1),
+      // action: new SnackBarAction(label: "Register",
+      // onPressed: (){
+      //   Navigator.pushNamed(context, "Register");
+      // },),
+    );
+    _scaffoldKey.currentState.showSnackBar(SnackBar);
+  }
+
+  TextEditingController fullName;
   TextEditingController phoneNumber;
   TextEditingController signUPemail;
 
@@ -21,7 +36,6 @@ class _FirstUserState extends State<FirstUser> {
     Icons.visibility,
   );
   GlobalKey<FormState> _form = GlobalKey<FormState>();
-  
 
   void initState() {
     // TODO: implement initState
@@ -31,34 +45,16 @@ class _FirstUserState extends State<FirstUser> {
 
     address = new TextEditingController();
     super.initState();
-
-  }
-
-
-
-  void _toggle() {
-    setState(() {
-      showPwd = !showPwd;
-      if (showPwd) {
-        _icon = Icon(
-          Icons.visibility,
-        );
-      } else {
-        _icon = Icon(Icons.visibility_off, color: Colors.grey);
-      }
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    // final FirebaseUser user= ModalRoute.of(context).settings.arguments;
+    final i = ModalRoute.of(context).settings.arguments;
     SizeConfig().find(context);
     var child = Container(
-     
-      height:  SizeConfig.h * 0.82,
-      width:  SizeConfig.w,
-
-      margin: EdgeInsets.only(top:  SizeConfig.h * 0.18),
+      height: SizeConfig.h * 0.82,
+      width: SizeConfig.w,
+      margin: EdgeInsets.only(top: SizeConfig.h * 0.18),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -70,8 +66,8 @@ class _FirstUserState extends State<FirstUser> {
               color: Colors.white,
               child: Text(
                 "SignUp",
-                style:
-                    TextStyle(color: Colors.green, fontSize:  SizeConfig.h * 0.046),
+                style: TextStyle(
+                    color: Colors.green, fontSize: SizeConfig.h * 0.046),
               ),
             ),
           ),
@@ -83,71 +79,74 @@ class _FirstUserState extends State<FirstUser> {
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.only(
-                      top: 25, left:  SizeConfig.w * 0.07, right:  SizeConfig.w * 0.07),
+                      top: 25,
+                      left: SizeConfig.w * 0.07,
+                      right: SizeConfig.w * 0.07),
                   child: Material(
                     color: Colors.white,
                     child: TextFormField(
                       decoration: InputDecoration(
                         labelStyle: TextStyle(
-                            color: Colors.grey, fontSize:  SizeConfig.h * 0.02),
+                            color: Colors.grey, fontSize: SizeConfig.h * 0.02),
                         labelText: 'Full Name',
                         hintText: "Enter your Full Name",
                         hintStyle: TextStyle(
-                            color: Colors.grey, fontSize:  SizeConfig.h * 0.02),
+                            color: Colors.grey, fontSize: SizeConfig.h * 0.02),
                         border: OutlineInputBorder(
                             borderRadius:
-                                BorderRadius.circular( SizeConfig.h * 2.5)),
+                                BorderRadius.circular(SizeConfig.h * 2.5)),
                       ),
-                      controller: signUPemail,
+                      controller: fullName,
                       keyboardType: TextInputType.text,
                       // validator: emailValidator,
                     ),
                   ),
                 ),
-               
                 Padding(
                   padding: EdgeInsets.only(
-                      top: 25, left:  SizeConfig.w * 0.07, right:  SizeConfig.w * 0.07),
+                      top: 25,
+                      left: SizeConfig.w * 0.07,
+                      right: SizeConfig.w * 0.07),
                   child: Material(
                     color: Colors.white,
                     child: TextFormField(
                       obscureText: showPwd,
                       decoration: InputDecoration(
                         labelStyle: TextStyle(
-                            color: Colors.grey, fontSize:  SizeConfig.h * 0.02),
-                      labelText: 'Mobile Number',
-                        hintText: "Enter your Mobile Number",
+                            color: Colors.grey, fontSize: SizeConfig.h * 0.02),
+                        labelText: 'email',
+                        hintText: "Enter your email",
                         hintStyle: TextStyle(
-                            color: Colors.grey, fontSize:  SizeConfig.h * 0.02),
-                      
+                            color: Colors.grey, fontSize: SizeConfig.h * 0.02),
                         border: OutlineInputBorder(
                             borderRadius:
-                                BorderRadius.circular( SizeConfig.h * 2.5)),
+                                BorderRadius.circular(SizeConfig.h * 2.5)),
                       ),
-                      controller: phoneNumber,
-                      keyboardType: TextInputType.number,
+                      controller: signUPemail,
+                      keyboardType: TextInputType.emailAddress,
                       // validator: pwdValidator,
                     ),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
-                      top: 25, left:  SizeConfig.w * 0.07, right:  SizeConfig.w * 0.07),
+                      top: 25,
+                      left: SizeConfig.w * 0.07,
+                      right: SizeConfig.w * 0.07),
                   child: Material(
                     color: Colors.white,
                     child: TextFormField(
                       obscureText: showPwd,
                       decoration: InputDecoration(
                         labelStyle: TextStyle(
-                            color: Colors.grey, fontSize:  SizeConfig.h * 0.02),
+                            color: Colors.grey, fontSize: SizeConfig.h * 0.02),
                         labelText: 'Address',
                         hintText: "Enter your Address",
                         hintStyle: TextStyle(
-                            color: Colors.grey, fontSize:  SizeConfig.h * 0.02),
-                      
+                            color: Colors.grey, fontSize: SizeConfig.h * 0.02),
                         border: OutlineInputBorder(
                             borderRadius:
-                                BorderRadius.circular( SizeConfig.h * 2.5)),
+                                BorderRadius.circular(SizeConfig.h * 2.5)),
                       ),
                       controller: address,
                       keyboardType: TextInputType.multiline,
@@ -157,25 +156,23 @@ class _FirstUserState extends State<FirstUser> {
                 ),
                 Padding(
                   padding: EdgeInsets.only(
-                      top: 25, left:  SizeConfig.w * 0.07, right:  SizeConfig.w * 0.07),
+                      top: 25,
+                      left: SizeConfig.w * 0.07,
+                      right: SizeConfig.w * 0.07),
                   child: Material(
                     color: Colors.white,
                     child: TextFormField(
                       obscureText: showPwd,
                       decoration: InputDecoration(
                         labelStyle: TextStyle(
-                            color: Colors.grey, fontSize:  SizeConfig.h * 0.02),
+                            color: Colors.grey, fontSize: SizeConfig.h * 0.02),
                         labelText: 'Phone num',
                         hintText: "Enter your num",
                         hintStyle: TextStyle(
-                            color: Colors.grey, fontSize:  SizeConfig.h * 0.02),
-                        suffixIcon: IconButton(
-                          icon: _icon,
-                          onPressed: _toggle,
-                        ),
+                            color: Colors.grey, fontSize: SizeConfig.h * 0.02),
                         border: OutlineInputBorder(
                             borderRadius:
-                                BorderRadius.circular( SizeConfig.h * 2.5)),
+                                BorderRadius.circular(SizeConfig.h * 2.5)),
                       ),
                       controller: phoneNumber,
                       keyboardType: TextInputType.visiblePassword,
@@ -185,96 +182,80 @@ class _FirstUserState extends State<FirstUser> {
                 ),
               ],
             ),
-          ),      Padding(
-                          padding: EdgeInsets.only(top:  SizeConfig.h * 0.045),
-                          child: RaisedButton(
-                              padding: EdgeInsets.only(
-                                  top:  SizeConfig.h * 0.01,
-                                  bottom:  SizeConfig.h * 0.01,
-                                  left:  SizeConfig.w * 0.3,
-                                  right:  SizeConfig.w * 0.3),
-                              color: Colors.green,
-                              onPressed: () {
-                                print("Verify OTP button is clicked");
-                                                              if (_form.currentState.validate()) {
-                          
-                                    
-                                      print("success");
-                                  FirebaseAuth.instance 
-                                      .createUserWithEmailAndPassword(
-                                          email: signUPemail.text,
-                                  password: phoneNumber.text)
-                                  .then((Cur) => Firestore.instance
-                                      .collection("users")
-                                      .document(Cur.user.uid)
-                                      .setData({
-                                        "address":         address.text,
-                                        "uid": Cur.user.uid,
-                                        "fname":   fullName.text,
-                                     
-                                        "email":   signUPemail.text,
-                                        "mobile":phoneNumber.text,
-                                        
-                                      })
-                                      .then((result) => {
-                                            // callSnackBar("Successfully Registered Thank You!"),
-                                        
-                                            Navigator.pushNamed(context,"HomeScreen"),
-                                            
-                                       fullName.clear(),
-                                        phoneNumber.clear(),
-                                        signUPemail.clear(),
-                                    
-                                      address.clear()
-                                      })
-                                  .catchError((err) => print(err)))
-                              .catchError((err) => print(err));
-                          } 
-                        else {
-                          print("fail");
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text("Error"),
-                                  content: Text(" do not match"),
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      child: Text("Close"),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    )
-                                  ],
-                                );
-                              });
-                        }
-                      
-                              },
-                              shape: RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(50.0),
-                              ),
-                              child: Text("SIGN UP",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 22))),
-                        ),
-         
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: SizeConfig.h * 0.045),
+            child: RaisedButton(
+                padding: EdgeInsets.only(
+                    top: SizeConfig.h * 0.01,
+                    bottom: SizeConfig.h * 0.01,
+                    left: SizeConfig.w * 0.3,
+                    right: SizeConfig.w * 0.3),
+                color: Colors.green,
+                onPressed: () {
+                  print("Verify OTP button is clicked");
+                  if (_form.currentState.validate()) {
+                    print("success");
+                    FirebaseAuth.instance
+                        .currentUser()
+                        .then((Cur) => Firestore.instance
+                            .collection("users")
+                            .document(Cur.uid)
+                            .setData({
+                              "address": address.text,
+                              "uid": Cur.uid,
+                              "fname": fullName.text,
+                              "email": signUPemail.text,
+                              "mobile": phoneNumber.text,
+                            })
+                            .then((result) => {
+                                  print("Successfully Registered Thank You!"),
+                                  Navigator.pushNamed(context, "Main",
+                                      arguments: i == "otp" ? "otp" : "gmail"),
+                                  fullName.clear(),
+                                  phoneNumber.clear(),
+                                  signUPemail.clear(),
+                                  address.clear()
+                                })
+                            .catchError((err) => print(err)))
+                        .catchError((err) => print(err));
+                  } else {
+                    print("fail");
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text("Error"),
+                            content: Text(" do not match"),
+                            actions: <Widget>[
+                              FlatButton(
+                                child: Text("Close"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              )
+                            ],
+                          );
+                        });
+                  }
+                },
+                shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(50.0),
+                ),
+                child: Text("SIGN UP",
+                    style: TextStyle(color: Colors.white, fontSize: 22))),
+          ),
         ],
       ),
     );
-    return
-         Scaffold(
-          body: 
-          SingleChildScrollView(
-            child:
-       Column(
-      children: <Widget>[
-    
-        child,
-      ],
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            child,
+          ],
         ),
       ),
-    ); 
+    );
   }
 }

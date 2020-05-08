@@ -27,7 +27,7 @@ Future<AuthResult> signInWithGoogle(BuildContext context) async {
   return authResult;
 }
 
-void signOutGoogle() async{
+void signOutGoogle() async {
   await googleSignIn.signOut();
 
   print("User Sign Out");
